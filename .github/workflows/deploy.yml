@@ -39,7 +39,11 @@ jobs:
         run: npm ci || npm install
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          # 루트에 있는 이미지들을 빌드 결과물 폴더(dist/)로 복사하여 배포 시 이미지가 정상 로드되도록 합니다.
+          cp -f image1.* image2.* dist/ 2>/dev/null || true
+          cp -f *.png *.jpg *.jpeg *.gif *.svg dist/ 2>/dev/null || true
         env:
           NODE_ENV: production
 

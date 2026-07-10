@@ -10,7 +10,7 @@ const initialLandingData: LandingData = {
   heroTitle: "모바일 요금 하나로,<br>사무소 인터넷 + 기가 와이파이가<br><span class=\"text-magenta-500 font-extrabold\">평생 '무료'</span>입니다.",
   heroSub: "매월 숨만 쉬어도 빠져나가는 사무실 통신비, 아직도 고정 지출로 내고 계신가요?\nLG U+ 올인원 패키지로 통신비 부담은 지우고, 계약 성사에만 집중하세요.",
   heroCtaText: "👉 우리 사무소 통신비 0원 만들기 (무료 컨설팅 신청)",
-  heroImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+  heroImage: "./image1.png",
   painTitle: "혹시 소장님도 <span class=\"text-magenta-500 font-extrabold\">이러고 계시지 않나요?</span>",
   painDesc: "임장 가랴, 매물 등록하랴, 고객 응대하랴 하루 24시간이 모자란 소장님.\n사무소 운영에 인터넷과 와이파이는 필수지만, 당연하다는 듯 매월 납부하는 통신비는 아깝지 않으셨나요?",
   pains: [
@@ -21,7 +21,7 @@ const initialLandingData: LandingData = {
   solutionTitle: "앞으로는 통신비, <span class=\"text-magenta-500 font-extrabold\">1원도 신경 쓰지 마세요.</span>",
   solutionDesc: "왜? LG U+ 올인원 패키지라면 '전액 무료'니까요!",
   solutionBoxText: "소장님이 쓰시는 모바일 요금 그대로, 부동산 사무소에 꼭 필요한 초고속 인터넷과 기가 와이파이를 무상으로 제공합니다. 통신사 이동이나 복잡한 결합 조건 없이, 오직 소장님들을 위해 설계된 가장 직관적인 비용 절감 솔루션입니다.",
-  solutionImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+  solutionImage: "./image2.png",
   benefitTitle: "소장님은 오직 <span class=\"text-purple-600 font-extrabold\">'본업(계약)'</span>에만 집중하세요.",
   benefitDesc: "나머지는 LG U+가 책임집니다.",
   benefits: [
