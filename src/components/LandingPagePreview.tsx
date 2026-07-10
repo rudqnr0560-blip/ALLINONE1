@@ -219,7 +219,7 @@ export default function LandingPagePreview({
     return (
       <div 
         onClick={() => startEdit(fieldPath, value)}
-        className="group relative cursor-pointer overflow-hidden rounded-2xl shadow hover:shadow-md transition-all mx-auto"
+        className="group relative cursor-pointer mx-auto w-full inline-block"
         title="클릭하여 이미지 변경"
       >
         <img 
@@ -309,11 +309,11 @@ export default function LandingPagePreview({
                 </div>
                 
                 {data.heroImage && (
-                  <div className="mb-6 max-w-lg mx-auto">
+                  <div className="mb-6 w-full max-w-2xl mx-auto">
                     <EditableImage 
                       value={data.heroImage} 
                       fieldPath="heroImage" 
-                      className="w-full h-44 md:h-56 object-cover rounded-2xl border border-purple-100 shadow-sm"
+                      className="w-full h-auto block"
                     />
                   </div>
                 )}
@@ -360,7 +360,7 @@ export default function LandingPagePreview({
             <section className="py-16 px-6 bg-slate-950 text-white text-center relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-950/40 via-transparent to-transparent pointer-events-none"></div>
               <div className="max-w-2xl mx-auto relative z-10">
-                <span className="text-magenta-400 font-extrabold text-xs md:text-sm tracking-widest uppercase mb-3 inline-block">THE LG U+ DIFFERENCE</span>
+                <span className="text-magenta-400 font-extrabold text-xs md:text-sm tracking-widest uppercase mb-3 inline-block">Simply, U+</span>
                 <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-6 tracking-tight leading-snug">
                   <EditableText value={data.solutionTitle} fieldPath="solutionTitle" isHtml={true} />
                 </h2>
@@ -385,7 +385,7 @@ export default function LandingPagePreview({
                   <EditableImage 
                     value={data.solutionImage} 
                     fieldPath="solutionImage" 
-                    className="w-full h-44 md:h-56 object-cover rounded-2xl border border-slate-200/60 shadow-sm"
+                    className="w-full h-auto block"
                   />
                 </div>
               </section>
