@@ -1,0 +1,40 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  
+  --color-magenta-50: #fdf2f7;
+  --color-magenta-100: #fce7f2;
+  --color-magenta-200: #fbcfe5;
+  --color-magenta-300: #f8a5ce;
+  --color-magenta-400: #f46fae;
+  --color-magenta-500: #e6007e; /* U+ Magenta */
+  --color-magenta-600: #cc006d;
+  --color-magenta-700: #ab0056;
+  --color-magenta-800: #8e0048;
+  --color-magenta-900: #76003d;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}

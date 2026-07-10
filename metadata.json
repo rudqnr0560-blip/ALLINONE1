@@ -1,0 +1,6 @@
+{
+  "name": "LG U+ Landing Page Optimizer",
+  "description": "부동산 소장님을 타겟으로 한 LG U+ 올인원 패키지 랜딩페이지의 고객 관점 검토 분석, 실시간 문구 편집기, AI 카피라이터 및 통신비 절감 계산 시뮬레이터를 제공하는 올인원 대시보드입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
