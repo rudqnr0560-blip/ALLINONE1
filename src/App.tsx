@@ -6,23 +6,22 @@ import AiCopyGenerator from "./components/AiCopyGenerator";
 import { Sparkles, BarChart2, MessageSquareCode, FileEdit, GraduationCap, Home, Lightbulb, Info } from "lucide-react";
 
 const initialLandingData: LandingData = {
-  heroTag: "부동산 전용 단독 제안",
-  heroTitle: "모바일 요금 하나로,<br>사무소 인터넷 + 기가 와이파이가<br><span class=\"text-magenta-500 font-extrabold\">평생 '무료'</span>입니다.",
+  heroTag: "부동산 전용 혜택 제안",
+  heroTitle: "모바일 요금 하나로,<br>사무소 인터넷<br> + 기가 WI-FI가<br><span class=\"text-magenta-500 font-extrabold\">매 월 '0원'</span>입니다.",
   heroSub: "매월 숨만 쉬어도 빠져나가는 사무실 통신비, 아직도 고정 지출로 내고 계신가요?\nLG U+ 올인원 패키지로 통신비 부담은 지우고, 계약 성사에만 집중하세요.",
-  heroCtaText: "👉 우리 사무소 통신비 0원 만들기 (무료 컨설팅 신청)",
   heroImage: "./image1.png",
-  painTitle: "혹시 소장님도 <span class=\"text-magenta-500 font-extrabold\">이러고 계시지 않나요?</span>",
+  painTitle: "혹시 소장님도 <br><span class=\"text-magenta-500 font-extrabold\">이러고 계시지 않나요?</span>",
   painDesc: "임장 가랴, 매물 등록하랴, 고객 응대하랴 하루 24시간이 모자란 소장님.\n사무소 운영에 인터넷과 와이파이는 필수지만, 당연하다는 듯 매월 납부하는 통신비는 아깝지 않으셨나요?",
   pains: [
     { icon: "💸", text: "매월 3~5만 원씩 빠져나가는 아까운 고정 지출" },
     { icon: "🎁", text: "가입할 때 받은 3~40만 원 사은품, 계산해 보면 결국 내 돈 내고 쓰는 구조" },
     { icon: "🚨", text: "주말에 손님 몰렸는데 갑자기 끊긴 인터넷, 연락 안 되는 고객센터" }
   ],
-  solutionTitle: "앞으로는 통신비, <span class=\"text-magenta-500 font-extrabold\">1원도 신경 쓰지 마세요.</span>",
+  solutionTitle: "앞으로는 인터넷 고정지출비, <br><span class=\"text-magenta-500 font-extrabold\">1원도 신경 쓰지 마세요.</span>",
   solutionDesc: "왜? LG U+ 올인원 패키지라면 '전액 무료'니까요!",
   solutionBoxText: "소장님이 쓰시는 모바일 요금 그대로, 부동산 사무소에 꼭 필요한 초고속 인터넷과 기가 와이파이를 무상으로 제공합니다. 통신사 이동이나 복잡한 결합 조건 없이, 오직 소장님들을 위해 설계된 가장 직관적인 비용 절감 솔루션입니다.",
   solutionImage: "./image2.png",
-  benefitTitle: "소장님은 오직 <span class=\"text-purple-600 font-extrabold\">'본업(계약)'</span>에만 집중하세요.",
+  benefitTitle: "소장님은 오직 <br><span class=\"text-purple-600 font-extrabold\">'본업(계약)'</span>에만 집중하세요.",
   benefitDesc: "나머지는 LG U+가 책임집니다.",
   benefits: [
     {
@@ -38,7 +37,7 @@ const initialLandingData: LandingData = {
       desc: "부동산은 주말이 대목이죠. 손님이 몰리는 주말과 공휴일에도 안심하세요. 문제 발생 시 사업장 전담 고객센터가 즉각적으로 해결해 드립니다."
     }
   ],
-  reviewsTitle: "이미 많은 소장님들이<br><span class=\"text-purple-600 font-extrabold\">고정비 0원의 혜택</span>을 누리고 계십니다.",
+  reviewsTitle: "이미 많은 소장님들이<br><span class=\"text-purple-600 font-extrabold\">고정비 0원의 혜택</span>을<br> 누리고 계십니다.",
   reviewsDesc: "실제 도입하신 대표님들의 생생한 한마디",
   reviews: [
     {
@@ -52,9 +51,9 @@ const initialLandingData: LandingData = {
       author: "- OO부동산중개법인 이OO 소장님"
     }
   ],
-  ctaFormTitle: "복잡한 서류? 영업점 방문? <span class=\"text-magenta-500 font-extrabold\">필요 없습니다.</span>",
+  ctaFormTitle: "복잡한 서류? 영업점 방문?<br> <span class=\"text-magenta-500 font-extrabold\">필요 없습니다.</span>",
   ctaFormDesc: "전문 컨설턴트가 소장님 사무소로 직접 찾아갑니다.\n지금 바로 무료 방문 컨설팅을 신청하시고, 우리 부동산의 새는 통신비를 완벽하게 차단해 보세요.",
-  ctaFormNote: "[한정 혜택] 이번 달 무료 방문 컨설팅을 신청하신 소장님들께는 통신비 진단 및 최적화 리포트를 무상으로 제공해 드립니다."
+  ctaFormNote: ""
 };
 
 export default function App() {

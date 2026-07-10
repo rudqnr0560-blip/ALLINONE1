@@ -591,12 +591,14 @@ export default function LandingPagePreview({
                   )}
                 </div>
 
-                <div className="mt-6 inline-flex bg-white border border-purple-200/80 rounded-xl p-4 text-left max-w-sm">
-                  <div className="text-yellow-500 text-lg md:text-xl mr-3 shrink-0">⏳</div>
-                  <p className="text-[10px] md:text-xs text-purple-950 font-semibold leading-relaxed">
-                    <EditableText value={data.ctaFormNote} fieldPath="ctaFormNote" />
-                  </p>
-                </div>
+                {data.ctaFormNote && (
+                  <div className="mt-6 inline-flex bg-white border border-purple-200/80 rounded-xl p-4 text-left max-w-sm">
+                    <div className="text-yellow-500 text-lg md:text-xl mr-3 shrink-0">⏳</div>
+                    <p className="text-[10px] md:text-xs text-purple-950 font-semibold leading-relaxed">
+                      <EditableText value={data.ctaFormNote} fieldPath="ctaFormNote" />
+                    </p>
+                  </div>
+                )}
               </div>
             </section>
 
