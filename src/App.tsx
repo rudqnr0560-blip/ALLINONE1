@@ -69,6 +69,10 @@ export default function App() {
     mobileLines: 1,
   });
 
+  // 깃허브 배포 시나리오를 자동 감지하여 배포된 도메인(github.io)이면 에디터/실험실을 비활성화하고 순수 랜딩페이지만 노출합니다.
+  const isDeployedDomain = typeof window !== "undefined" && window.location.hostname.includes("github.io");
+  const [isEditMode, setIsEditMode] = useState(!isDeployedDomain);
+
   const handleApplyAiCopy = (newHeadline: string, newSub: string) => {
     setLandingData((prev) => ({
       ...prev,
@@ -80,67 +84,73 @@ export default function App() {
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-slate-900 text-slate-100 font-sans overflow-hidden">
       
-      {/* 왼쪽: 컨트롤 & 분석 대시보드 (전체 45% 너비) */}
-      <div className="w-full lg:w-[45%] h-[50vh] lg:h-full flex flex-col border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-950 overflow-hidden shrink-0">
-        {/* 상단 헤더 */}
-        <div className="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-magenta-600 flex items-center justify-center text-white shadow-md font-black text-sm">
-              U+
+      {/* 왼쪽: 컨트롤 & 분석 대시보드 (전체 45% 너비) - 편집 모드일 때만 표시 */}
+      {isEditMode && (
+        <div className="w-full lg:w-[45%] h-[50vh] lg:h-full flex flex-col border-b lg:border-b-0 lg:border-r border-slate-800 bg-slate-950 overflow-hidden shrink-0">
+          {/* 상단 헤더 */}
+          <div className="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-magenta-600 flex items-center justify-center text-white shadow-md font-black text-sm">
+                U+
+              </div>
+              <div>
+                <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
+                  LG U+ 부동산 랜딩 최적화 랩 <span className="text-[10px] bg-magenta-500/20 text-magenta-400 font-extrabold px-1.5 py-0.5 rounded-full border border-magenta-500/30">PRO</span>
+                </h1>
+                <p className="text-[10px] text-slate-400 font-normal">부동산 소장님 타겟 Landing Page 분석 및 실험실</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
-                LG U+ 부동산 랜딩 최적화 랩 <span className="text-[10px] bg-magenta-500/20 text-magenta-400 font-extrabold px-1.5 py-0.5 rounded-full border border-magenta-500/30">PRO</span>
-              </h1>
-              <p className="text-[10px] text-slate-400 font-normal">부동산 소장님 타겟 Landing Page 분석 및 실험실</p>
-            </div>
+            <button
+              onClick={() => setIsEditMode(false)}
+              className="text-[11px] bg-purple-600 hover:bg-purple-700 text-white font-bold px-2.5 py-1.5 rounded-lg border border-purple-500/50 shadow transition-all flex items-center gap-1 shrink-0"
+              title="고객이 보게 될 배포 모드로 미리보기"
+            >
+              👁️ 배포화면 미리보기
+            </button>
           </div>
-          <div className="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded-md border border-slate-800">
-            v1.2.0
+
+          {/* 랩 메인 내비게이션 탭 */}
+          <div className="flex bg-slate-900/50 p-2 border-b border-slate-800 shrink-0">
+            <button
+              onClick={() => setActiveTab("review")}
+              className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${activeTab === "review" ? "bg-purple-600/10 text-purple-400 border border-purple-500/30 shadow-sm" : "text-slate-400 hover:text-slate-200 border border-transparent"}`}
+            >
+              <BarChart2 className="w-4 h-4" /> 검토 리포트 & 절감 시뮬레이션
+            </button>
+            <button
+              onClick={() => setActiveTab("ai")}
+              className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${activeTab === "ai" ? "bg-magenta-600/10 text-magenta-400 border border-magenta-500/30 shadow-sm" : "text-slate-400 hover:text-slate-200 border border-transparent"}`}
+            >
+              <Sparkles className="w-4 h-4 text-magenta-400 fill-magenta-400/20" /> AI 카피라이팅 제안 센터
+            </button>
+          </div>
+
+          {/* 탭 콘텐츠 */}
+          <div className="flex-1 overflow-hidden p-4 md:p-6 bg-slate-950/40">
+            {activeTab === "review" ? (
+              <ReviewDashboard
+                savingsData={savingsData}
+                setSavingsData={setSavingsData}
+                showSavingsWidget={showSavingsWidget}
+                setShowSavingsWidget={setShowSavingsWidget}
+              />
+            ) : (
+              <AiCopyGenerator currentData={landingData} onApplyCopy={handleApplyAiCopy} />
+            )}
+          </div>
+
+          {/* 하단 정보 바 */}
+          <div className="px-6 py-3 bg-slate-900 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-500 font-normal shrink-0">
+            <span className="flex items-center gap-1">
+              <Info className="w-3.5 h-3.5 text-slate-400" /> 랜딩페이지의 아무 텍스트나 클릭하여 직접 문구를 고쳐보세요.
+            </span>
+            <span className="hidden sm:inline font-mono">LAB STATUS: READY</span>
           </div>
         </div>
+      )}
 
-        {/* 랩 메인 내비게이션 탭 */}
-        <div className="flex bg-slate-900/50 p-2 border-b border-slate-800 shrink-0">
-          <button
-            onClick={() => setActiveTab("review")}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${activeTab === "review" ? "bg-purple-600/10 text-purple-400 border border-purple-500/30 shadow-sm" : "text-slate-400 hover:text-slate-200 border border-transparent"}`}
-          >
-            <BarChart2 className="w-4 h-4" /> 검토 리포트 & 절감 시뮬레이션
-          </button>
-          <button
-            onClick={() => setActiveTab("ai")}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${activeTab === "ai" ? "bg-magenta-600/10 text-magenta-400 border border-magenta-500/30 shadow-sm" : "text-slate-400 hover:text-slate-200 border border-transparent"}`}
-          >
-            <Sparkles className="w-4 h-4 text-magenta-400 fill-magenta-400/20" /> AI 카피라이팅 제안 센터
-          </button>
-        </div>
-
-        {/* 탭 콘텐츠 */}
-        <div className="flex-1 overflow-hidden p-4 md:p-6 bg-slate-950/40">
-          {activeTab === "review" ? (
-            <ReviewDashboard
-              savingsData={savingsData}
-              setSavingsData={setSavingsData}
-              showSavingsWidget={showSavingsWidget}
-              setShowSavingsWidget={setShowSavingsWidget}
-            />
-          ) : (
-            <AiCopyGenerator currentData={landingData} onApplyCopy={handleApplyAiCopy} />
-          )}
-        </div>
-
-        {/* 하단 정보 바 */}
-        <div className="px-6 py-3 bg-slate-900 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-500 font-normal shrink-0">
-          <span className="flex items-center gap-1">
-            <Info className="w-3.5 h-3.5 text-slate-400" /> 랜딩페이지의 아무 텍스트나 클릭하여 직접 문구를 고쳐보세요.
-          </span>
-          <span className="hidden sm:inline font-mono">LAB STATUS: READY</span>
-        </div>
-      </div>
-
-      {/* 오른쪽: 라이브 랜딩페이지 프리뷰 (전체 55% 너비) */}
-      <div className="flex-1 h-[50vh] lg:h-full flex flex-col overflow-hidden bg-slate-900">
+      {/* 오른쪽/전체: 라이브 랜딩페이지 프리뷰 */}
+      <div className="flex-1 h-full flex flex-col overflow-y-auto bg-slate-900">
         <LandingPagePreview
           data={landingData}
           onChange={setLandingData}
@@ -148,8 +158,20 @@ export default function App() {
           setViewport={setViewport}
           showSavingsWidget={showSavingsWidget}
           savingsData={savingsData}
+          isEditable={isEditMode}
         />
       </div>
+
+      {/* 실험실 복귀 버튼 (배포 미리보기 시나리오 중 개발환경에서만 로드) */}
+      {!isEditMode && !isDeployedDomain && (
+        <button
+          onClick={() => setIsEditMode(true)}
+          className="fixed bottom-6 right-6 z-50 bg-slate-900/95 hover:bg-slate-800 text-slate-100 border border-slate-700 hover:border-purple-500 shadow-2xl rounded-2xl px-4 py-3 font-bold text-xs flex items-center gap-2 transition-all group scale-100 hover:scale-105 active:scale-95 backdrop-blur"
+        >
+          <div className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></div>
+          <span>🧪 기획/편집 실험실(Lab)로 복귀</span>
+        </button>
+      )}
 
     </div>
   );

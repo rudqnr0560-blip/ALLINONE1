@@ -15,6 +15,7 @@ interface LandingPagePreviewProps {
     internetSpeed: string;
     mobileLines: number;
   };
+  isEditable?: boolean;
 }
 
 export default function LandingPagePreview({
@@ -24,6 +25,7 @@ export default function LandingPagePreview({
   setViewport,
   showSavingsWidget,
   savingsData,
+  isEditable = true,
 }: LandingPagePreviewProps) {
   const [editingField, setEditingField] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
@@ -31,12 +33,13 @@ export default function LandingPagePreview({
   const [leadSubmitted, setLeadSubmitted] = useState(false);
 
   const startEdit = (fieldPath: string, currentValue: string) => {
+    if (!isEditable) return;
     setEditingField(fieldPath);
     setEditValue(currentValue);
   };
 
   const saveEdit = () => {
-    if (!editingField) return;
+    if (!editingField || !isEditable) return;
     const keys = editingField.split(".");
     const newData = { ...data } as any;
 
@@ -96,6 +99,15 @@ export default function LandingPagePreview({
     as?: any;
     isHtml?: boolean;
   }) => {
+    if (!isEditable) {
+      const RenderTag = Component === "textarea" ? "span" : Component;
+      return isHtml ? (
+        <RenderTag className={className} dangerouslySetInnerHTML={{ __html: value }} />
+      ) : (
+        <RenderTag className={className}>{value}</RenderTag>
+      );
+    }
+
     const isEditing = editingField === fieldPath;
 
     if (isEditing) {
@@ -162,6 +174,17 @@ export default function LandingPagePreview({
     fieldPath: string;
     className?: string;
   }) => {
+    if (!isEditable) {
+      return (
+        <img 
+          src={value} 
+          alt="Landing Section Visual" 
+          referrerPolicy="no-referrer"
+          className={className} 
+        />
+      );
+    }
+
     const isEditing = editingField === fieldPath;
 
     if (isEditing) {
@@ -221,45 +244,47 @@ export default function LandingPagePreview({
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-100 rounded-2xl overflow-hidden shadow-inner border border-slate-200">
+    <div className={isEditable ? "flex flex-col h-full bg-slate-100 rounded-2xl overflow-hidden shadow-inner border border-slate-200" : "w-full min-h-screen bg-white"}>
       {/* 뷰포트 변경 상단바 */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200 shadow-sm shrink-0">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-          <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
-          <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
-          <span className="text-xs font-mono text-slate-500 ml-2">LIVE LANDING PREVIEW</span>
+      {isEditable && (
+        <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200 shadow-sm shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+            <span className="text-xs font-mono text-slate-500 ml-2">LIVE LANDING PREVIEW</span>
+          </div>
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+            <button
+              onClick={() => setViewport("mobile")}
+              className={`p-1.5 rounded-md transition-colors ${viewport === "mobile" ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+              title="모바일 뷰"
+            >
+              <Smartphone className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewport("tablet")}
+              className={`p-1.5 rounded-md transition-colors ${viewport === "tablet" ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+              title="태블릿 뷰"
+            >
+              <Tablet className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewport("desktop")}
+              className={`p-1.5 rounded-md transition-colors ${viewport === "desktop" ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+              title="데스크톱 뷰"
+            >
+              <Monitor className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
-          <button
-            onClick={() => setViewport("mobile")}
-            className={`p-1.5 rounded-md transition-colors ${viewport === "mobile" ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
-            title="모바일 뷰"
-          >
-            <Smartphone className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setViewport("tablet")}
-            className={`p-1.5 rounded-md transition-colors ${viewport === "tablet" ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
-            title="태블릿 뷰"
-          >
-            <Tablet className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setViewport("desktop")}
-            className={`p-1.5 rounded-md transition-colors ${viewport === "desktop" ? "bg-white text-purple-600 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
-            title="데스크톱 뷰"
-          >
-            <Monitor className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+      )}
 
       {/* 실시간 렌더링 영역 */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-8 flex items-start justify-center">
-        <div className={`bg-white shadow-xl transition-all duration-300 overflow-hidden ${viewportWidths[viewport]}`}>
+      <div className={isEditable ? "flex-1 overflow-y-auto p-4 md:p-8 flex items-start justify-center" : "w-full"}>
+        <div className={isEditable ? `bg-white shadow-xl transition-all duration-300 overflow-hidden ${viewportWidths[viewport]}` : "w-full max-w-4xl mx-auto bg-white"}>
           {/* 모바일일 경우 노치 및 상단 스피커 홈 데코 */}
-          {viewport === "mobile" && (
+          {isEditable && viewport === "mobile" && (
             <div className="w-full bg-slate-800 h-6 flex justify-center items-center relative shrink-0">
               <div className="w-32 h-4 bg-black rounded-b-2xl absolute top-0"></div>
               <div className="flex justify-between w-full px-5 text-[10px] text-slate-400 font-semibold select-none">
